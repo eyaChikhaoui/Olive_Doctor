@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#15261d" />
+    <meta name="description" content="Olive Doctor — analyse ciblée des feuilles et branches d’olivier." />
+    <title>Olive Doctor · Analyse de l’olivier</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="#accueil" aria-label="Olive Doctor, retour à l’accueil">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="brand-copy"><strong>olive</strong><em>doctor</em></span>
+        </a>
+        <nav class="main-nav" aria-label="Navigation principale">
+          <a href="#accueil">Accueil</a>
+          <a href="#analyse">Analyse</a>
+          <a href="#fonctionnement">Méthode</a>
+        </nav>
+        <a class="nav-cta" href="#analyse">Démarrer <span aria-hidden="true">↗</span></a>
+      </header>
+
+      <main>
+        <section class="hero" id="accueil">
+          <div class="hero-kicker"><span class="pulse-dot"></span> Intelligence végétale, au plus près du terrain</div>
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <p class="eyebrow">Olive Doctor · Diagnostic visuel assisté</p>
+              <h1>Lire l’olivier<br /><span>avec précision.</span></h1>
+              <p class="hero-lead">Une analyse claire, ciblée et locale pour comprendre ce que racontent vos feuilles et vos branches.</p>
+              <a class="primary-button" href="#analyse">Lancer une analyse <span aria-hidden="true">→</span></a>
+              <p class="micro-note"><span>●</span> Deux spécialistes indépendants · aucune détection automatique</p>
+            </div>
+            <div class="hero-side-note" aria-label="Résumé du service">
+              <span class="side-index">01</span>
+              <span class="side-line"></span>
+              <span>Du signal visuel<br />à la décision de terrain.</span>
+            </div>
+          </div>
+          <div class="hero-bottomline">
+            <span>FEUILLE / BRANCHE</span>
+            <span>ANALYSE LOCALE · 384 PX</span>
+          </div>
+        </section>
+
+        <section class="analysis-section" id="analyse">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Votre espace d’analyse</p>
+              <h2>Choisissez votre<br /><em>point d’observation.</em></h2>
+            </div>
+            <p class="section-intro">Un spécialiste à la fois. Importez une image nette d’une feuille ou d’une branche, puis laissez le modèle faire parler les détails.</p>
+          </div>
+
+          <div class="specialist-grid" role="radiogroup" aria-label="Choix du spécialiste">
+            <button class="specialist-card is-selected" type="button" data-model="leaf" role="radio" aria-checked="true">
+              <span class="card-topline"><span class="card-number">01</span><span class="selection-mark">✓</span></span>
+              <span class="card-icon leaf-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+              <span class="card-title">Leaf Specialist</span>
+              <span class="card-label">Spécialiste des feuilles</span>
+              <span class="card-description">Fumagine, œil de paon, virose, dégâts d’acariens, carence ou feuille saine.</span>
+              <span class="card-foot"><span class="status-pill" data-status="leaf">Vérification…</span><span>6 classes</span></span>
+            </button>
+            <button class="specialist-card" type="button" data-model="branch" role="radio" aria-checked="false">
+              <span class="card-topline"><span class="card-number">02</span><span class="selection-mark">✓</span></span>
+              <span class="card-icon branch-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+              <span class="card-title">Branch Specialist</span>
+              <span class="card-label">Spécialiste des branches</span>
+              <span class="card-description">Cochenille noire, fumagine, tuberculose de l’olivier ou branche saine.</span>
+              <span class="card-foot"><span class="status-pill" data-status="branch">Vérification…</span><span>4 classes</span></span>
+            </button>
+          </div>
+
+          <div class="analysis-panel glass-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Étape 02 · Image de référence</p>
+                <h3>Déposez votre image ici.</h3>
+              </div>
+              <span class="format-note">JPG · PNG · WEBP<br />10 Mo maximum</span>
+            </div>
+
+            <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Importer une image">
+              <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp" hidden />
+              <div class="upload-empty" id="uploadEmpty">
+                <span class="upload-icon" aria-hidden="true">↥</span>
+                <strong>Glissez-déposez votre image</strong>
+                <span>ou <button class="inline-link" id="browseButton" type="button">parcourez vos fichiers</button></span>
+                <small>Une image à la fois · traitement local</small>
+              </div>
+              <div class="upload-preview" id="uploadPreview" hidden>
+                <img id="previewImage" alt="Aperçu de l’image importée" />
+                <div class="preview-meta"><span id="fileName">image.jpg</span><span id="fileSize">0 Ko</span></div>
+                <button class="remove-button" id="removeButton" type="button" aria-label="Supprimer l’image">×</button>
+              </div>
+            </div>
+
+            <div class="analysis-actions">
+              <p class="selection-summary"><span class="summary-dot"></span> Modèle actif : <strong id="selectedModelLabel">Leaf Specialist</strong></p>
+              <button class="primary-button analysis-button" id="analyzeButton" type="button" disabled>Analyser l’image <span aria-hidden="true">→</span></button>
+            </div>
+            <div class="loading-state" id="loadingState" hidden aria-live="polite"><span class="spinner"></span><span>Analyse en cours, les détails prennent forme…</span></div>
+            <div class="error-message" id="errorMessage" hidden role="alert"></div>
+          </div>
+        </section>
+
+        <section class="result-section" id="resultSection" hidden>
+          <div class="result-header">
+            <div>
+              <p class="eyebrow">Résultat de l’analyse</p>
+              <h2>Un signal principal,<br /><em>à regarder de près.</em></h2>
+            </div>
+            <button class="secondary-button" id="newAnalysisButton" type="button">Nouvelle analyse <span aria-hidden="true">↺</span></button>
+          </div>
+          <div class="result-grid">
+            <article class="prediction-card glass-panel">
+              <div class="prediction-topline"><span id="resultSpecialist">Leaf Specialist</span><span class="result-check">● Modèle vérifié</span></div>
+              <p class="prediction-label">Classe la plus probable</p>
+              <h3 id="predictedLabel">—</h3>
+              <p class="prediction-id" id="predictedClass">—</p>
+              <div class="confidence-row"><span>Confiance</span><strong id="confidenceValue">—</strong></div>
+              <div class="confidence-track"><span id="confidenceBar"></span></div>
+              <p class="device-note" id="deviceNote">Calcul effectué localement.</p>
+            </article>
+            <article class="probability-card glass-panel">
+              <div class="probability-header"><div><p class="prediction-label">Distribution complète</p><h3>Probabilités par classe</h3></div><span class="scale-note">0 — 100 %</span></div>
+              <div class="probability-list" id="probabilityList"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="method-section" id="fonctionnement">
+          <div class="method-orbit" aria-hidden="true"><span class="orbit-dot"></span><span class="orbit-ring"></span><span class="orbit-ring orbit-ring-2"></span></div>
+          <div class="method-copy">
+            <p class="eyebrow">La méthode Olive Doctor</p>
+            <h2>Observer juste.<br /><em>Décider mieux.</em></h2>
+            <p>Chaque spécialiste a été entraîné pour son propre organe. Aucun mélange de modèles, aucune boîte englobante : vous indiquez ce que vous regardez, Olive Doctor mesure le signal.</p>
+          </div>
+          <div class="method-points">
+            <div><span>01</span><strong>Choisir</strong><p>Feuille ou branche, selon votre observation.</p></div>
+            <div><span>02</span><strong>Importer</strong><p>Une image simple, nette et bien éclairée.</p></div>
+            <div><span>03</span><strong>Comprendre</strong><p>Une classe principale et sa distribution de confiance.</p></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer" id="origine">
+        <div class="brand footer-brand"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span class="brand-copy"><strong>olive</strong><em>doctor</em></span></div>
+        <p>Diagnostic visuel local pour l’olivier.</p>
+        <span>© 2026 · Feuille / Branche</span>
+      </footer>
+    </div>
+    <script src="/script.js" defer></script>
+  </body>
+</html>
